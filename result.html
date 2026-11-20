@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ผลการประเมิน | Smart Home Price</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Smart<span>Home</span>Price</a>
+  <a class="back-link" href="index.html" data-th="← กลับหน้าหลัก" data-en="← Back to home">← กลับหน้าหลัก</a>
+  <button class="lang-btn" id="langToggle" type="button">EN</button>
+</header>
+
+<main class="result-main">
+  <section class="result-heading">
+    <p class="eyebrow" data-th="ผลการประเมินของคุณ" data-en="YOUR ESTIMATE">ผลการประเมินของคุณ</p>
+    <h1 data-th="บ้านที่เหมาะกับความต้องการของคุณ" data-en="A home that fits your needs">บ้านที่เหมาะกับความต้องการของคุณ</h1>
+    <p data-th="ระบบใช้ Machine Learning วิเคราะห์คุณลักษณะบ้านจาก Dataset ที่ฝึกไว้" data-en="Machine learning analyzed the property features using the trained dataset.">ระบบใช้ Machine Learning วิเคราะห์คุณลักษณะบ้านจาก Dataset ที่ฝึกไว้</p>
+  </section>
+
+  <section class="price-card">
+    <div>
+      <span data-th="ราคาบ้านโดยประมาณ" data-en="Estimated home price">ราคาบ้านโดยประมาณ</span>
+      <h2 id="resPrice">$0</h2>
+      <small>USD · Ames, Iowa dataset</small>
+    </div>
+    <div class="price-badge">ML Estimate</div>
+  </section>
+
+  <section class="result-grid">
+    <div class="result-card">
+      <p class="eyebrow" data-th="กลุ่มลูกค้า" data-en="CUSTOMER GROUP">กลุ่มลูกค้า</p>
+      <h3 id="resGroupTitle">บ้านสำหรับครอบครัว</h3>
+      <p id="resGroupDesc">เน้นพื้นที่ใช้สอยและจำนวนห้องที่รองรับสมาชิกในครอบครัวได้อย่างลงตัว</p>
+    </div>
+    <div class="result-card">
+      <p class="eyebrow" data-th="ข้อมูลหลักที่ระบุ" data-en="KEY SPECS">ข้อมูลหลักที่ระบุ</p>
+      <div class="details-list">
+        <span><b id="resBedrooms">3</b><small data-th="ห้องนอน" data-en="Bedrooms">ห้องนอน</small></span>
+        <span><b id="resBathrooms">2</b><small data-th="ห้องน้ำ" data-en="Bathrooms">ห้องน้ำ</small></span>
+        <span><b id="resArea">1,550</b><small data-th="ตร.ฟุต" data-en="Sq ft">ตร.ฟุต</small></span>
+        <span><b id="resQuality">6/10</b><small data-th="คุณภาพ" data-en="Quality">คุณภาพ</small></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="result-card property-summary">
+    <p class="eyebrow" data-th="รายละเอียดบ้านทั้งหมดที่กรอก" data-en="ALL ENTERED PROPERTY DETAILS">รายละเอียดบ้านทั้งหมดที่กรอก</p>
+    <div class="property-meta-grid">
+      <div><small data-th="ย่านที่ตั้ง" data-en="Neighborhood">ย่านที่ตั้ง</small><b id="resNeighborhood">-</b></div>
+      <div><small data-th="ปีที่สร้างบ้าน" data-en="Year built">ปีที่สร้างบ้าน</small><b id="resYearBuilt">-</b></div>
+      <div><small data-th="ประเภทอาคาร" data-en="Building type">ประเภทอาคาร</small><b id="resBuildingType">-</b></div>
+      <div><small data-th="รูปแบบบ้าน" data-en="House style">รูปแบบบ้าน</small><b id="resHouseStyle">-</b></div>
+      <div><small data-th="ขนาดที่ดิน" data-en="Lot area">ขนาดที่ดิน</small><b id="resLotArea">-</b></div>
+      <div><small data-th="สภาพบ้าน / ที่จอดรถ" data-en="Condition / Garage">สภาพบ้าน / ที่จอดรถ</small><b id="resConditionGarage">-</b></div>
+    </div>
+  </section>
+
+  <section class="budget-note">
+    <b data-th="ตรวจสอบงบประมาณ" data-en="Budget check">ตรวจสอบงบประมาณ</b>
+    <p id="resBudgetStatus">ไม่ได้ระบุงบประมาณ (แสดงราคาประเมินตามคุณลักษณะบ้านที่เลือก)</p>
+    <small id="resBudgetVal" style="display:none;"></small>
+  </section>
+
+  <section class="result-card recommendation-card">
+    <p class="eyebrow" data-th="ประเภทบ้านที่แนะนำ" data-en="SUGGESTED HOME TYPES">ประเภทบ้านที่แนะนำ</p>
+    <h2 data-th="รูปแบบที่สอดคล้องกับกลุ่มที่เลือก" data-en="Styles matching your selected group">รูปแบบที่สอดคล้องกับกลุ่มที่เลือก</h2>
+    <div class="recommendation-list" id="resRecommendations"></div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="gallery-heading">
+      <div>
+        <p class="eyebrow" data-th="แรงบันดาลใจตามกลุ่มลูกค้า" data-en="CUSTOMER GROUP INSPIRATION">แรงบันดาลใจตามกลุ่มลูกค้า</p>
+        <h2 id="resGalleryTitle">บ้านในกลุ่มบ้านสำหรับครอบครัว</h2>
+        <p data-th="แสดงเฉพาะภาพตัวอย่างที่จัดไว้สำหรับกลุ่มลูกค้าที่คุณเลือก" data-en="Only examples curated for your selected customer group are shown.">แสดงเฉพาะภาพตัวอย่างที่จัดไว้สำหรับกลุ่มลูกค้าที่คุณเลือก</p>
+      </div>
+      <span class="gallery-count" id="resGalleryCount">12 ภาพ</span>
+    </div>
+    <div class="house-gallery" id="resGalleryGrid"></div>
+    <p class="gallery-disclaimer" data-th="ภาพเป็นตัวอย่างประกอบตามกลุ่มความต้องการ ไม่ใช่บ้านที่ประกาศขายจริงหรือภาพบ้านใน Dataset" data-en="Images are illustrative examples for this customer group, not live listings or dataset properties.">ภาพเป็นตัวอย่างประกอบตามกลุ่มความต้องการ ไม่ใช่บ้านที่ประกาศขายจริงหรือภาพบ้านใน Dataset</p>
+  </section>
+
+  <div class="photo-modal" id="photoModal" aria-hidden="true">
+    <button class="modal-close" type="button" aria-label="Close">×</button>
+    <img id="modalImage" src="" alt="House example">
+    <p id="modalCaption"></p>
+  </div>
+
+  <div class="disclaimer">
+    <b data-th="ข้อควรทราบ" data-en="Important note">ข้อควรทราบ</b>
+    <p data-th="ผลลัพธ์นี้เป็นราคาประเมินจากโมเดลที่ฝึกด้วยข้อมูลบ้านใน Ames, Iowa ไม่ใช่ราคาประกาศขายจริง และไม่ใช่ราคาประเมินอสังหาริมทรัพย์ในประเทศไทย" data-en="This is a model estimate based on homes in Ames, Iowa. It is not a live listing or a property valuation for Thailand.">ผลลัพธ์นี้เป็นราคาประเมินจากโมเดลที่ฝึกด้วยข้อมูลบ้านใน Ames, Iowa ไม่ใช่ราคาประกาศขายจริง และไม่ใช่ราคาประเมินอสังหาริมทรัพย์ในประเทศไทย</p>
+  </div>
+
+  <a class="primary-btn" href="index.html" data-th="ประเมินบ้านอีกครั้ง →" data-en="Estimate another home →">ประเมินบ้านอีกครั้ง →</a>
+</main>
+
+<footer>
+  <a class="brand" href="index.html">Smart<span>Home</span>Price</a>
+  <p data-th="ระบบต้นแบบเพื่อการศึกษา • ราคาที่แสดงเป็นการประเมินจาก Dataset" data-en="Educational prototype • Prices are estimates based on the dataset">ระบบต้นแบบเพื่อการศึกษา • ราคาที่แสดงเป็นการประเมินจาก Dataset</p>
+</footer>
+
+<script src="static/js/data.js"></script>
+<script src="static/js/app.js"></script>
+</body>
+</html>

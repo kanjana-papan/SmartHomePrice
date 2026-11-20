@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Home Price | ค้นหาบ้านที่ใช่</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Smart<span>Home</span>Price</a>
+  <nav>
+    <a href="#groups" data-th="กลุ่มลูกค้า" data-en="Customer groups">กลุ่มลูกค้า</a>
+    <a href="#how" data-th="วิธีใช้งาน" data-en="How it works">วิธีใช้งาน</a>
+  </nav>
+  <button class="lang-btn" id="langToggle" type="button">EN</button>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow" data-th="ค้นหาบ้านที่เหมาะกับคุณ" data-en="FIND A HOME THAT FITS YOU">ค้นหาบ้านที่เหมาะกับคุณ</p>
+      <h1 data-th="บ้านที่ใช่<br>ในราคาที่เหมาะสม" data-en="The right home<br>at the right estimate">บ้านที่ใช่<br>ในราคาที่เหมาะสม</h1>
+      <p class="hero-desc" data-th="เลือกกลุ่มความต้องการ กรอกรายละเอียดบ้านและงบประมาณ แล้วรับผลประเมินราคาจาก Machine Learning" data-en="Choose your needs, enter property details and budget, and get a machine-learning price estimate.">เลือกกลุ่มความต้องการ กรอกรายละเอียดบ้านและงบประมาณ แล้วรับผลประเมินราคาจาก Machine Learning</p>
+      <a class="primary-btn" href="#groups" data-th="เริ่มค้นหาบ้าน →" data-en="Start exploring →">เริ่มค้นหาบ้าน →</a>
+    </div>
+    <div class="hero-image">
+      <div class="image-label">
+        <span class="dot"></span>
+        <span data-th="ค้นหาบ้านในแบบของคุณ" data-en="Your home, your way">ค้นหาบ้านในแบบของคุณ</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="groups">
+    <div class="section-heading">
+      <p class="eyebrow" data-th="เลือกความต้องการของคุณ" data-en="CHOOSE YOUR NEEDS">เลือกความต้องการของคุณ</p>
+      <h2 data-th="คุณกำลังมองหาบ้านแบบไหน?" data-en="What kind of home are you looking for?">คุณกำลังมองหาบ้านแบบไหน?</h2>
+      <p data-th="เลือกกลุ่มความต้องการ ระบบจะปรับค่าเริ่มต้นของสเปกบ้านให้สอดคล้องกับรูปแบบที่เลือก" data-en="Select a group to automatically tailor default property specs to your needs.">เลือกกลุ่มความต้องการ ระบบจะปรับค่าเริ่มต้นของสเปกบ้านให้สอดคล้องกับรูปแบบที่เลือก</p>
+    </div>
+
+    <form action="result.html" method="GET" class="search-form" id="predictForm">
+      <div class="group-grid" id="groupGrid">
+        <!-- Populated by static/js/app.js -->
+      </div>
+
+      <div class="form-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow" data-th="รายละเอียดบ้านและงบประมาณ" data-en="PROPERTY DETAILS & BUDGET">รายละเอียดบ้านและงบประมาณ</p>
+            <h2 data-th="บอกเราเกี่ยวกับบ้านที่คุณต้องการ" data-en="Tell us about your ideal home">บอกเราเกี่ยวกับบ้านที่คุณต้องการ</h2>
+          </div>
+          <span class="step-tag">01 / 02</span>
+        </div>
+
+        <!-- หมวดที่ 1: งบประมาณ ทำเล และลักษณะโครงสร้างบ้าน (6 ช่อง = 2 แถว x 3 คอลัมน์) -->
+        <div class="form-group-block">
+          <p class="form-group-title">
+            <span class="badge-num">1</span>
+            <span data-th="งบประมาณ ทำเล และโครงสร้างบ้าน" data-en="Budget, Location & Structure">งบประมาณ ทำเล และโครงสร้างบ้าน</span>
+          </p>
+          <div class="form-grid">
+            <label>
+              <span data-th="งบประมาณที่ตั้งไว้ (USD)" data-en="Target Budget (USD)">งบประมาณที่ตั้งไว้ (USD)</span>
+              <input type="number" name="budget" id="inputBudget" min="20000" max="2000000" step="1000" placeholder="เช่น 180000">
+            </label>
+
+            <label>
+              <span data-th="ย่านที่ตั้ง (Neighborhood)" data-en="Neighborhood">ย่านที่ตั้ง (Neighborhood)</span>
+              <select name="neighborhood" id="inputNeighborhood"></select>
+            </label>
+
+            <label>
+              <span data-th="ปีที่สร้างบ้าน (ค.ศ.)" data-en="Year built">ปีที่สร้างบ้าน (ค.ศ.)</span>
+              <input type="number" name="year_built" id="inputYearBuilt" min="1880" max="2026" value="2002">
+            </label>
+
+            <label>
+              <span data-th="ประเภทอาคาร" data-en="Building type">ประเภทอาคาร</span>
+              <select name="building_type" id="inputBuildingType"></select>
+            </label>
+
+            <label>
+              <span data-th="รูปแบบบ้าน" data-en="House style">รูปแบบบ้าน</span>
+              <select name="house_style" id="inputHouseStyle"></select>
+            </label>
+
+            <label>
+              <span data-th="พื้นที่ใช้สอย (ตารางฟุต)" data-en="Living area (sq ft)">พื้นที่ใช้สอย (ตารางฟุต)</span>
+              <input type="number" name="area" id="inputArea" min="300" max="10000" value="1550" required>
+            </label>
+          </div>
+        </div>
+
+        <!-- หมวดที่ 2: พื้นที่ดิน จำนวนห้อง และคุณภาพบ้าน (6 ช่อง = 2 แถว x 3 คอลัมน์) -->
+        <div class="form-group-block warm-tint">
+          <p class="form-group-title">
+            <span class="badge-num">2</span>
+            <span data-th="ขนาดที่ดิน จำนวนห้อง และคุณภาพบ้าน" data-en="Lot Size, Rooms & Condition">ขนาดที่ดิน จำนวนห้อง และคุณภาพบ้าน</span>
+          </p>
+          <div class="form-grid">
+            <label>
+              <span data-th="ขนาดที่ดิน (ตารางฟุต)" data-en="Lot area (sq ft)">ขนาดที่ดิน (ตารางฟุต)</span>
+              <select name="lot_area" id="inputLotArea">
+                <option value="3200">ขนาดกะทัดรัด (3,200 ตร.ฟุต)</option>
+                <option value="4500">ขนาดเล็ก (4,500 ตร.ฟุต)</option>
+                <option value="6000">ขนาดกลาง-เล็ก (6,000 ตร.ฟุต)</option>
+                <option value="8500" selected>ขนาดมาตรฐาน (8,500 ตร.ฟุต)</option>
+                <option value="11000">ขนาดใหญ่ (11,000 ตร.ฟุต)</option>
+                <option value="13500">ขนาดใหญ่พิเศษ (13,500 ตร.ฟุต)</option>
+                <option value="20000">พื้นที่กว้างมาก (20,000 ตร.ฟุต)</option>
+              </select>
+            </label>
+
+            <label>
+              <span data-th="จำนวนห้องนอน" data-en="Bedrooms">จำนวนห้องนอน</span>
+              <select name="bedrooms" id="inputBedrooms" required>
+                <option value="1">1 ห้องนอน</option>
+                <option value="2">2 ห้องนอน</option>
+                <option value="3" selected>3 ห้องนอน</option>
+                <option value="4">4 ห้องนอน</option>
+                <option value="5">5+ ห้องนอน</option>
+              </select>
+            </label>
+
+            <label>
+              <span data-th="จำนวนห้องน้ำ" data-en="Bathrooms">จำนวนห้องน้ำ</span>
+              <select name="bathrooms" id="inputBathrooms">
+                <option value="1">1 ห้องน้ำ</option>
+                <option value="1.5">1.5 ห้องน้ำ (มีห้องสุขาเพิ่ม)</option>
+                <option value="2" selected>2 ห้องน้ำ</option>
+                <option value="2.5">2.5 ห้องน้ำ</option>
+                <option value="3">3 ห้องน้ำ</option>
+                <option value="4">4+ ห้องน้ำ</option>
+              </select>
+            </label>
+
+            <label>
+              <span data-th="คุณภาพวัสดุและงานก่อสร้าง (1–10)" data-en="Overall quality (1–10)">คุณภาพวัสดุและงานก่อสร้าง (1–10)</span>
+              <select name="quality" id="inputQuality">
+                <option value="3">3 — พอใช้ / ควรปรับปรุง</option>
+                <option value="4">4 — ต่ำกว่ามาตรฐานเล็กน้อย</option>
+                <option value="5">5 — มาตรฐานทั่วไป</option>
+                <option value="6" selected>6 — ดี</option>
+                <option value="7">7 — ดีมาก</option>
+                <option value="8">8 — พรีเมียม</option>
+                <option value="9">9 — หรูหราพิเศษ</option>
+                <option value="10">10 — ระดับคฤหาสน์</option>
+              </select>
+            </label>
+
+            <label>
+              <span data-th="สภาพบ้านปัจจุบัน (1–10)" data-en="Overall condition (1–10)">สภาพบ้านปัจจุบัน (1–10)</span>
+              <select name="condition" id="inputCondition">
+                <option value="3">3 — ทรุดโทรม</option>
+                <option value="4">4 — ต้องซ่อมแซมบางส่วน</option>
+                <option value="5">5 — สภาพปานกลาง</option>
+                <option value="6" selected>6 — สภาพดี</option>
+                <option value="7">7 — สภาพดีมาก</option>
+                <option value="8">8 — ดูแลรักษาดีเยี่ยม</option>
+                <option value="9">9 — เหมือนใหม่</option>
+              </select>
+            </label>
+
+            <label>
+              <span data-th="จำนวนที่จอดรถ (คัน)" data-en="Garage capacity (cars)">จำนวนที่จอดรถ (คัน)</span>
+              <select name="garage_cars" id="inputGarageCars">
+                <option value="0">ไม่มีโรงจอดรถ (0 คัน)</option>
+                <option value="1">1 คัน</option>
+                <option value="2" selected>2 คัน</option>
+                <option value="3">3 คัน</option>
+                <option value="4">4 คัน</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <p class="form-note" data-th="หมายเหตุ: Dataset ต้นทางเป็นข้อมูลบ้านใน Ames, Iowa ใช้หน่วยดอลลาร์สหรัฐ (USD) และตารางฟุต (sq ft)" data-en="Note: The source dataset describes homes in Ames, Iowa, using USD and square feet.">หมายเหตุ: Dataset ต้นทางเป็นข้อมูลบ้านใน Ames, Iowa ใช้หน่วยดอลลาร์สหรัฐ (USD) และตารางฟุต (sq ft)</p>
+        <button class="primary-btn submit-btn" type="submit">
+          <span data-th="ประเมินราคาบ้าน" data-en="Estimate home price">ประเมินราคาบ้าน</span> <span>→</span>
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section class="how-section" id="how">
+    <div>
+      <p class="eyebrow" data-th="ขั้นตอนการทำงาน" data-en="HOW IT WORKS">ขั้นตอนการทำงาน</p>
+      <h2 data-th="ค้นหาบ้านได้ง่าย ๆ ใน 3 ขั้นตอน" data-en="Find your home in 3 simple steps">ค้นหาบ้านได้ง่าย ๆ ใน 3 ขั้นตอน</h2>
+    </div>
+    <div class="how-grid">
+      <div><b>01</b><h3 data-th="เลือกกลุ่มลูกค้า" data-en="Choose your group">เลือกกลุ่มลูกค้า</h3><p data-th="ระบุความต้องการและเป้าหมายในการซื้อบ้าน" data-en="Tell us your home-buying goals.">ระบุความต้องการและเป้าหมายในการซื้อบ้าน</p></div>
+      <div><b>02</b><h3 data-th="กรอกข้อมูลบ้านและงบประมาณ" data-en="Enter property details">กรอกข้อมูลบ้านและงบประมาณ</h3><p data-th="ระบุงบประมาณ ทำเล ขนาดพื้นที่ และคุณภาพบ้าน" data-en="Enter budget, location, area, and quality.">ระบุงบประมาณ ทำเล ขนาดพื้นที่ และคุณภาพบ้าน</p></div>
+      <div><b>03</b><h3 data-th="รับผลประเมิน" data-en="Get your estimate">รับผลประเมิน</h3><p data-th="ดูราคาประเมินและภาพตัวอย่างบ้านที่ตรงกับกลุ่มของคุณ" data-en="View the estimated price and real home photos.">ดูราคาประเมินและภาพตัวอย่างบ้านที่ตรงกับกลุ่มของคุณ</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a class="brand" href="index.html">Smart<span>Home</span>Price</a>
+  <p data-th="ระบบต้นแบบเพื่อการศึกษา • ราคาที่แสดงเป็นการประเมินจาก Dataset" data-en="Educational prototype • Prices are estimates based on the dataset">ระบบต้นแบบเพื่อการศึกษา • ราคาที่แสดงเป็นการประเมินจาก Dataset</p>
+</footer>
+
+<script src="static/js/data.js"></script>
+<script src="static/js/app.js"></script>
+</body>
+</html>
